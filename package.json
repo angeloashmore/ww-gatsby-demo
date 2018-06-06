@@ -5,6 +5,7 @@
     "gatsby-link": "^1.6.40",
     "gatsby-plugin-react-helmet": "^2.0.10",
     "gatsby-source-filesystem": "^1.5.38",
+    "gatsby-source-prismic": "^1.0.1",
     "gatsby-transformer-remark": "^1.7.41",
     "react-helmet": "^5.2.0"
   },

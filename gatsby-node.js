@@ -11,6 +11,7 @@ exports.createPages = async ({ boundActionCreators, graphql }) => {
   const { createPage } = boundActionCreators
 
   const blogPostTemplate = path.resolve('src/templates/blogTemplate.js')
+  const pageTemplate = path.resolve('src/templates/pageTemplate.js')
 
   const result = await graphql(`
     {
@@ -26,6 +27,14 @@ exports.createPages = async ({ boundActionCreators, graphql }) => {
           }
         }
       }
+      allPrismicPage {
+        edges {
+          node {
+            id
+            uid
+          }
+        }
+      }
     }
   `)
 
@@ -35,6 +44,16 @@ exports.createPages = async ({ boundActionCreators, graphql }) => {
     createPage({
       path: node.frontmatter.path,
       component: blogPostTemplate,
+    })
+  })
+
+  result.data.allPrismicPage.edges.forEach(({ node }) => {
+    createPage({
+      path: node.uid,
+      component: pageTemplate,
+      context: {
+        id: node.id,
+      },
     })
   })
 }
